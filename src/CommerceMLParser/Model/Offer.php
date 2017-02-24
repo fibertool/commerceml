@@ -9,7 +9,7 @@ use CommerceMLParser\ORM\Collection;
 
 class Offer extends Product
 {
-    /** @var int Количество */
+    /** @var float $quantity */
     protected $quantity;
     /** @var Collection|Price[] Цены  */
     protected $prices;
@@ -34,10 +34,14 @@ class Offer extends Product
                 $this->warehouses->add(new WarehouseStock($warehouse));
             }
         }
+
+        if ($xml->Количество) {
+            $this->quantity = floatval($xml->Количество);
+        }
     }
 
     /**
-     * @return int
+     * @return float
      */
     public function getQuantity()
     {
